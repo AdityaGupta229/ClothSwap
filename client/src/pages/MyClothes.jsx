@@ -20,7 +20,7 @@ function MyClothes() {
 
       try {
         const response = await fetch(
-          "http://localhost:5000/api/clothes/my-clothes",
+          `${import.meta.env.VITE_API_URL}/clothes/my`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

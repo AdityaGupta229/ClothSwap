@@ -17,7 +17,9 @@ console.log(
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: "https://clothswap-frontend-9pjp.onrender.com"
+}));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/clothes", clothingRoutes);

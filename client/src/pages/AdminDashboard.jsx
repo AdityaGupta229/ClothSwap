@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import "./AdminDashboard.css";
 
-const API_URL = "http://localhost:5000/api/admin/stats";
-const CLOTHES_URL = "http://localhost:5000/api/admin/clothes";
-const SWAPS_URL = "http://localhost:5000/api/admin/swaps";
+const API_URL = import.meta.env.VITE_API_URL+"/api";
+const CLOTHES_URL = `${API_URL}/admin/clothes`;
+const SWAPS_URL = `${API_URL}/admin/swaps`;
 
 function AdminDashboard() {
 const [stats, setStats] = useState(null);
@@ -72,7 +72,7 @@ async function loadDashboard() {
 
   await Promise.all([
     loadSection(
-      API_URL,
+      `${API_URL}/admin/stats`,
       setStats,
       setError,
       setLoading,

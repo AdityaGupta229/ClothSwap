@@ -38,13 +38,13 @@ function Browse() {
       try {
         const currentToken = localStorage.getItem("token");
 
-        let url = "http://localhost:5000/api/clothes";
+        let url = import.meta.env.VITE_API_URL + "/clothes";
 
         if (currentToken) {
           url =
             view === "nearby"
-              ? "http://localhost:5000/api/clothes/nearby"
-              : "http://localhost:5000/api/clothes/others";
+              ? `${import.meta.env.VITE_API_URL}/clothes/nearby`
+              : `${import.meta.env.VITE_API_URL}/clothes/others`;
         }
 
         const response = await fetch(

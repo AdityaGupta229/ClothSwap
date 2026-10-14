@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./SwapChat.css";
 
-const API_URL = import.meta.env.VITE_API_URL + "/api/swaps";
+const API_URL = import.meta.env.VITE_API_URL + "/api/messages";
 
 function SwapChat() {
   const { swapId } = useParams();

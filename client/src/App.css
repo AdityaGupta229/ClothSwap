@@ -924,8 +924,25 @@ left: 4px;
   }
 
   .nav-links.nav-open {
-    display: flex;
-  }
+  display: flex;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-height: 70vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  background: #ffffff;
+  padding: 8px 20px 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-top: 1px solid #eeeeee;
+}
+
+.navbar {
+  z-index: 1001;
+}
 
   .nav-links a,
   .nav-links .welcome-user,

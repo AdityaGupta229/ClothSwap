@@ -1470,3 +1470,50 @@ object-fit: contain;
 .item-image small {
 z-index: 2;
 }
+
+/* My Clothes - Mobile Responsive Fix */
+@media screen and (max-width: 600px) {
+  .my-clothes-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .clothes-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    width: 100%;
+  }
+
+  .clothing-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    overflow-wrap: anywhere;
+  }
+
+  .clothing-card img {
+    width: 100%;
+    max-width: 100%;
+    height: 220px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .clothing-card button {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}

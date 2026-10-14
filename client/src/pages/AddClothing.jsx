@@ -81,7 +81,7 @@ if (imageFile) {
   formData.append("image", imageFile);
 }
 
-const response = await fetch(`${import.meta.env.VITE_API_URL}/clothes`, {
+const response = await fetch(`${import.meta.env.VITE_API_URL}/api/clothes`, {
   method: "POST",
   headers: {
     Authorization: `Bearer ${token}`,

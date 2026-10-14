@@ -24,7 +24,7 @@ function ClothingDetails() {
 
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/clothes/${id}`
+          `${import.meta.env.VITE_API_URL}/api/clothes/${id}`
         );
 
         if (!response.ok) {

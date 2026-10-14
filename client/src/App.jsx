@@ -17,6 +17,7 @@ import MyClothes from "./pages/MyClothes";
 
 function Home() {
   const [currentUser, setCurrentUser] = useState(null);
+  const [menuOpen, setMenuOpen]= useState(false);
 
   useEffect(() => {
     function loadUser() {
@@ -53,8 +54,16 @@ function Home() {
         <Link to="/" className="brand">
           Cloth<span>Swap</span>
         </Link>
+        <button
+  className="menu-toggle"
+  onClick={() => setMenuOpen(!menuOpen)}
+  aria-label="Toggle navigation menu"
+  aria-expanded={menuOpen}
+>
+  {menuOpen ? "✕" : "☰"}
+</button>
 
-        <div className="nav-links">
+        <div className={`nav-links ${menuOpen ? "nav-open" : ""}`}>
           <Link to="/">Home</Link>
           <Link to="/browse">Browse</Link>
           <Link to="/my-requests">My Requests</Link>

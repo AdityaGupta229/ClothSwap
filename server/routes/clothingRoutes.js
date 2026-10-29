@@ -157,69 +157,87 @@ router.get("/:id", async (req, res) => {
 });
 
 // Add a clothing listing
-router.post(
-  "/",
-  authMiddleware,
-  upload.single("image"),
-  async (req, res) => {
-    try {
-      const {
-        title,
-        description,
-        category,
-        size,
-        condition,
-        imageUrl,
-        estimatedValue,
-      } = req.body;
+router.post("/", authMiddleware, (req, res, next) => {
+  upload.single("image")(req, res, (uploadError) => {
+    if (uploadError) {
+      console.error(
+        "Clothing upload middleware error:",
+        JSON.stringify(
+          uploadError,
+          Object.getOwnPropertyNames(uploadError),
+          2
+        )
+      );
 
-      if (
-        !title?.trim() ||
-        !description?.trim() ||
-        !category?.trim() ||
-        !size?.trim() ||
-        !condition?.trim()
-      ) {
-        return res.status(400).json({
-          success: false,
-          message: "Please fill in all required fields.",
-        });
-      }
-
-      const user = await User.findById(req.userId);
-
-      if (!user) {
-        return res.status(401).json({
-          success: false,
-          message: "User not found. Please log in again.",
-        });
-      }
-
-      const clothing = await Clothing.create({
-        title,
-        description,
-        category,
-        size,
-        condition,
-        estimatedValue: Number(estimatedValue) || 0,
-        imageUrl: req.file ? req.file.path : imageUrl || "",
-        ownerName: user.name,
-        owner: user._id,
+      return res.status(400).json({
+        success: false,
+        message: uploadError.message || "Image upload failed.",
       });
+    }
 
-      res.status(201).json({
-        success: true,
-        data: clothing,
-      });
-    } catch (error) {
-  console.error("Add clothing error:", error);
-
-  res.status(error.status || 500).json({
-    success: false,
-    message: error.message || "Could not add clothing listing.",
+    next();
   });
-}
+}, async (req, res) => {
+  try {
+    const {
+      title,
+      description,
+      category,
+      size,
+      condition,
+      imageUrl,
+      estimatedValue,
+    } = req.body;
+
+    if (
+      !title?.trim() ||
+      !description?.trim() ||
+      !category?.trim() ||
+      !size?.trim() ||
+      !condition?.trim()
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Please fill in all required fields.",
+      });
+    }
+
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User not found. Please log in again.",
+      });
+    }
+
+    const clothing = await Clothing.create({
+      title,
+      description,
+      category,
+      size,
+      condition,
+      estimatedValue: Number(estimatedValue) || 0,
+      imageUrl: req.file ? req.file.path : imageUrl || "",
+      ownerName: user.name,
+      owner: user._id,
+    });
+
+    return res.status(201).json({
+      success: true,
+      data: clothing,
+    });
+  } catch (error) {
+    console.error(
+      "Add clothing error:",
+      JSON.stringify(error, Object.getOwnPropertyNames(error), 2)
+    );
+
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Could not add clothing listing.",
+    });
   }
-);
+});
 
 module.exports = router;

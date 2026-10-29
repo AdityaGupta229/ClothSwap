@@ -212,12 +212,13 @@ router.post(
         data: clothing,
       });
     } catch (error) {
-      console.error("Add clothing error:", error.message);
-      res.status(400).json({
-        success: false,
-        message: "Could not add clothing listing.",
-      });
-    }
+  console.error("Add clothing error:", error);
+
+  res.status(error.status || 500).json({
+    success: false,
+    message: error.message || "Could not add clothing listing.",
+  });
+}
   }
 );
 

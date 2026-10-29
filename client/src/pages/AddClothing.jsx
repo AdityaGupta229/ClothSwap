@@ -89,7 +89,16 @@ const response = await fetch(`${import.meta.env.VITE_API_URL}/api/clothes`, {
   body: formData,
 });
 
-const result = await response.json();
+const responseText = await response.text();
+
+let result;
+try {
+  result = JSON.parse(responseText);
+} catch {
+  throw new Error(
+    `Server returned a non-JSON response (HTTP ${response.status}). Check backend logs and image upload configuration.`
+  );
+}
 
       if (!response.ok || !result.success) {
         throw new Error(result.message || "Could not add clothing.");
